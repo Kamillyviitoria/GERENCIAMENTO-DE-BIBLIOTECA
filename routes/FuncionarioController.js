@@ -79,7 +79,6 @@ router.get('/funcionarios', (req, res, next) => {
   res.json(funcionarios)
 })
 
-//BUSCAR UM FUNCIONÁRIO
 // GET /funcionarios/:cpf
 
 router.get('/funcionarios/:cpf', (req, res, next) => {
