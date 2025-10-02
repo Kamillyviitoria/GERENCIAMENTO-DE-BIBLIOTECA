@@ -20,7 +20,7 @@ let livros = [
 ]
 
 // Criar
-router.post('/livros', (req, res, next) => {
+router.post('/livros', (req, res) => {
   const { titulo, autor, categoria, anoPublicacao } = req.body
   if (!titulo || !autor || !categoria || !anoPublicacao) {
     return res.status(400).json({ error: "titulo, autor, categoria e anoPublicacao são obrigatórios!" })
@@ -37,12 +37,12 @@ router.post('/livros', (req, res, next) => {
 })
 
 // Listar Todos
-router.get('/livros', (req, res, next) => {
+router.get('/livros', (req, res) => {
   res.json(livros)
 })
 
 // Buscar um
-router.get('/livros/:id', (req, res, next) => {
+router.get('/livros/:id', (req, res) => {
   const idRecebido = req.params.id
   const livro = livros.find(l => l.id == idRecebido)
   if (!livro) {
@@ -52,7 +52,7 @@ router.get('/livros/:id', (req, res, next) => {
 })
 
 // Atualizar
-router.put('/livros/:id', (req, res, next) => {
+router.put('/livros/:id', (req, res) => {
   const idRecebido = req.params.id
   const { titulo, autor, categoria, anoPublicacao } = req.body
   if (!titulo || !autor || !categoria || !anoPublicacao) {
@@ -70,7 +70,7 @@ router.put('/livros/:id', (req, res, next) => {
 })
 
 // Deletar
-router.delete('/livros/:id', (req, res, next) => {
+router.delete('/livros/:id', (req, res) => {
   const idRecebido = req.params.id
   const livro = livros.find(l => l.id == Number(idRecebido))
   if (!livro) {
@@ -80,4 +80,4 @@ router.delete('/livros/:id', (req, res, next) => {
   res.json({ message: "Livro excluído com sucesso!" })
 })
 
-module.exports = router
+module.exports = { router, livros }
