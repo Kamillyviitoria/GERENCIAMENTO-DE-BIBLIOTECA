@@ -16,7 +16,12 @@ app.use((req, res, next) => {
 
 // Roteadores
 const LivroController = require('./routes/LivroController')
-app.use(LivroController)
+const FuncionarioController = require('./routes/FuncionarioController')
+
+//preixos diferentes
+app.use("/", LivroController)
+app.use("/", FuncionarioController)
+
 
 app.listen(3000, () => {
   console.log("Api rodando em http://localhost:3000")
