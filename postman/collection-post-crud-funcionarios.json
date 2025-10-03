@@ -1,0 +1,126 @@
+{
+	"info": {
+		"_postman_id": "054bf97a-ee62-47fd-847c-4e36ed11e020",
+		"name": "TRABALHO BACKEND BIBLIOTECA",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "47460734"
+	},
+	"item": [
+		{
+			"name": "buscar funcionarios",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3000/funcionarios",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"funcionarios"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "buscar funcionario",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3000/funcionarios/11234567891",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"funcionarios",
+						"11234567891"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "adicionar funcionario",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"nome_completo\": \"Antônio Luiz do Nascimento\",\r\n    \"cpf\": \"15935725806\",\r\n    \"email\": \"antonio_nascimento@gmail.com\",\r\n    \"data_nasc\": \"15/09/1995\",\r\n    \"data_admissao\": \"26/07/2019\",\r\n    \"telefone\":\"61995550804\",\r\n    \"cargo\": \"assistente administrativo\",\r\n    \"status\": \"transferido\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/funcionarios",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"funcionarios"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "atualizar funcionario",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n        \"cpf\": 11234567890,\r\n        \"nome_completo\": \"Maria Fernanda de Oliveira\",\r\n        \"data_nasc\": \"21/05/2001\",\r\n        \"telefone\": \"61996688808\",\r\n        \"email\": \"fehOliveira@gmail.com\",\r\n        \"cargo\": \"diretor(a) de biblioteca\",\r\n        \"data_admissao\": \"10/07/2022\",\r\n        \"status\": \"transferida\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/funcionarios/11234567890",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"funcionarios",
+						"11234567890"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "deletar funcionario",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3000/funcionarios/11234567890",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"funcionarios",
+						"11234567890"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
