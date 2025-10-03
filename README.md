@@ -45,14 +45,107 @@ Validação de relacionamentos: Só é possível criar um agendamento se o funci
 
 Status automático: Todo novo agendamento começa com o status "ativo".
 
-Endpoints disponíveis:
+🚀 Endpoints
+Funcionários
 
-Método	Rota	Descrição
-GET	/agendamentos	Lista todos os agendamentos
-POST	/agendamentos	Cria um novo agendamento (valida funcionário e livro)
-GET	/agendamentos/:id	Busca agendamento por ID
-PUT	/agendamentos/:id	Atualiza agendamento, incluindo status
-DELETE	/agendamentos/:id	Remove agendamento
+GET /funcionarios → lista todos
+
+GET /funcionarios/:cpf → busca por CPF
+
+POST /funcionarios → cria funcionário
+
+PUT /funcionarios/:cpf → atualiza funcionário
+
+DELETE /funcionarios/:cpf → remove funcionário
+
+Exemplo requisição:
+
+POST /funcionarios
+{
+  "nome": "Maria Silva",
+  "cpf": "12345678901",
+  "email": "maria@example.com",
+  "cargo": "Bibliotecário",
+  "status": "ativo"
+}
+
+Usuários
+
+GET /usuarios → lista todos
+
+GET /usuarios/:id → busca por ID
+
+POST /usuarios → cria usuário
+
+PUT /usuarios/:id → atualiza usuário
+
+DELETE /usuarios/:id → remove usuário
+
+Exemplo requisição:
+
+POST /usuarios
+{
+  "nome": "João Pereira",
+  "email": "joao@example.com",
+  "telefone": "61988887777"
+}
+
+Livros
+
+GET /livros → lista todos
+
+GET /livros/:id → busca por ID
+
+POST /livros → cadastra livro
+
+PUT /livros/:id → atualiza livro
+
+DELETE /livros/:id → remove livro
+
+Exemplo requisição:
+
+POST /livros
+{
+  "titulo": "Dom Casmurro",
+  "autor": "Machado de Assis",
+  "categoria": "Clássico",
+  "anoPublicacao": 1899
+}
+
+Categorias
+
+GET /categorias → lista todas
+
+GET /categorias/:id → busca por ID
+
+POST /categorias → cria categoria
+
+PUT /categorias/:id → atualiza categoria
+
+DELETE /categorias/:id → remove categoria
+
+Agendamentos
+
+GET /agendamentos → lista todos
+
+GET /agendamentos/:id → busca por ID
+
+POST /agendamentos → cria agendamento
+
+PUT /agendamentos/:id → atualiza agendamento
+
+DELETE /agendamentos/:id → remove agendamento
+
+Exemplo requisição:
+
+POST /agendamentos
+{
+  "cpfFuncionario": "12345678901",
+  "idLivro": 10,
+  "dataAgendamento": "2025-10-05",
+  "dataDevolucao": "2025-10-20"
+}
+
 
 Exportar para Sheets
 ⚙️ Instalação e Execução
@@ -89,3 +182,16 @@ Exemplo de Rota para Teste:
 Listar Usuários: GET para http://localhost:3000/usuarios
 
 Criar Categoria: POST para http://localhost:3000/categorias com o corpo: {"nome": "Ficção", "descricao": "Livros imaginários."}
+
+
+
+👥 Integrantes e Contribuições
+Nome	GitHub	Contribuições principais
+Kamilly	Kamillyviitoria
+	Configuração do servidor, rotas principais, controle de agendamentos
+Vladimir	Vladimir-Aires
+	CRUD de funcionários, tratamento de erros, testes iniciais
+Ramerson	Ramerson97
+	CRUD de livros e categorias, validações e relacionamentos
+Walisson	Walisson-Rocha
+	CRUD de usuários, revisão final do código, integração entre módulos
