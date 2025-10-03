@@ -19,12 +19,14 @@ const { router: LivroController } = require('./routes/LivroController')
 const { router: FuncionarioController } = require('./routes/FuncionarioController')
 const AgendamentoController = require('./routes/AgendamentoController')
 const {router: UsuarioController} = require('./routes/UsuarioController')
+const { router: CategoriaController } = require('./routes/CategoriaController')
 
 // Prefixos diferentes
 app.use("/", LivroController)
 app.use("/", FuncionarioController)
 app.use("/", AgendamentoController)
 app.use("/", UsuarioController )
+app.use("/", CategoriaController)
 
 app.listen(3000, () => {
   console.log("API rodando em http://localhost:3000")
