@@ -94,8 +94,8 @@ router.put('/agendamentos/:id', (req, res) => {
 
 // Deletar
 router.delete('/agendamentos/:id', (req, res) => {
-  const id = req.params.id
-  const agendamento = agendamentos.find(a => a.id == id)
+  const id = parseInt(req.params.id); // Converte a string da URL para número
+  const agendamento = agendamentos.find(a => a.id === id)
   if (!agendamento) {
     return res.status(404).json({ error: "Agendamento não encontrado!" })
   }
