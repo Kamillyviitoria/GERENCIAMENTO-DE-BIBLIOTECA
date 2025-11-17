@@ -154,15 +154,18 @@ Certifique-se de ter o Node.js e o npm instalados.
 
 Clone o projeto:
 
-Bash
-
+bash
+```
 git clone <URL_DO_REPOSITORIO>
 cd GERENCIAMENTO-DE-BIBLIOTECA
+```
+
 Instale as dependências:
 
-Bash
-
+bash
+```
 npm install
+```
 Execute a API:
 
 Bash
