@@ -15,23 +15,29 @@ const DB_NAME = process.env.DB_NAME
 
 const url = `mongodb+srv://${DB_USER}:${DB_PASS}@${DB_HOST}/${DB_NAME}`
 
+// Importar controladores
+const AgendamentoController = require('./controllers/AgendamentoController')
+const CategoriaController = require('./controllers/CategoriaController')
+const EmprestimoController = require('./controllers/EmprestimoController')
+const FuncionarioController = require('./controllers/FuncionarioController')
+const LivroController = require('./controllers/LivroController')
+const UsuarioController = require('./controllers/UsuarioController')
 
+// Usar as rotas
+app.use(AgendamentoController)
+app.use(CategoriaController.router)  // Nota: CategoriaController exporta { router, categorias }
+app.use(EmprestimoController)
+app.use(FuncionarioController)
+app.use(LivroController.router)  // Mesmo para LivroController
+app.use(UsuarioController.router)  // Mesmo para UsuarioController
 
 mongoose.connect(url)
     .then(() => {
         console.log('Conectado ao banco MongoDB!!')
     })
     .catch(err => {
-        console.log("Erro ao conectar ao banco MongoDB: ",err)
+        console.log("Erro ao conectar ao banco MongoDB: ", err)
     })
-
-// rotas
-
-const FuncionarioController = require('./controllers/FuncionarioController')
-app.use(FuncionarioController)
-
-
-// Prefixos diferentes
 
 app.listen(3000, () => {
   console.log("API rodando em http://localhost:3000")
