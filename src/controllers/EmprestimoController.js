@@ -58,12 +58,12 @@ router.post('/emprestimos', (req, res) => {
   res.status(201).json({ message: "Empréstimo criado com sucesso!", novoEmprestimo })
 })
 
-// Listar todos os empréstimos
+
 router.get('/emprestimos', (req, res) => {
   res.json(emprestimos)
 })
 
-// Buscar empréstimo por ID
+
 router.get('/emprestimos/:id', (req, res) => {
   const id = req.params.id
   const emprestimo = emprestimos.find(e => e.id == id)
