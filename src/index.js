@@ -13,7 +13,9 @@ const DB_USER = process.env.DB_USER
 const DB_PASS = process.env.DB_PASS
 const DB_NAME = process.env.DB_NAME
 
-const url = `mongodb+srv://${DB_USER}:${DB_PASS}@${DB_HOST}/${DB_NAME}`
+const url = `mongodb+srv://walisson_rocha:HVFLodR1odvGEVlK@clusterbiblioteca.zvs9kdq.mongodb.net/?appName=ClusterBiblioteca`;
+
+
 
 // Importar controladores
 const AgendamentoController = require('./controllers/AgendamentoController')
