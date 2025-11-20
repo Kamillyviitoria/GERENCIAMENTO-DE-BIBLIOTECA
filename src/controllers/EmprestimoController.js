@@ -1,45 +1,44 @@
 const express = require('express')
 const router = express.Router()
 
-// Importando listas de usuários e livros (de outros controladores)
+
 const { usuarios } = require('./UsuarioController')
 const { livros } = require('./LivroController')
 
-// Lista de empréstimos para simular o banco de dados
+
 let emprestimos = [
   {
     id: 1,
-    idUsuario: 1001,  // Referência ao ID do usuário
-    idLivro: 1,       // Referência ao ID do livro
+    idUsuario: 1001, 
+    idLivro: 1,       
     dataEmprestimo: "2025-10-01",
     dataDevolucaoPrevista: "2025-10-15",
-    dataDevolucaoReal: null,  // Pode ser null se ainda não devolvido
-    status: "ativo"  // ativo ou devolvido
+    dataDevolucaoReal: null,  
+    status: "ativo"  
   }
 ]
 
-// Criar empréstimo
+
 router.post('/emprestimos', (req, res) => {
   const { idUsuario, idLivro, dataEmprestimo, dataDevolucaoPrevista } = req.body
 
-  // Validação: Campos obrigatórios
+ 
   if (!idUsuario || !idLivro || !dataEmprestimo || !dataDevolucaoPrevista) {
     return res.status(400).json({ error: "idUsuario, idLivro, dataEmprestimo e dataDevolucaoPrevista são obrigatórios!" })
   }
 
-  // Verificar se o usuário existe
+  
   const usuario = usuarios.find(u => u.id == idUsuario)
   if (!usuario) {
     return res.status(404).json({ error: "Usuário não encontrado!" })
   }
 
-  // Verificar se o livro existe
+  
   const livro = livros.find(l => l.id == idLivro)
   if (!livro) {
     return res.status(404).json({ error: "Livro não encontrado!" })
   }
 
-  // Verificar se o livro já está emprestado (status ativo)
   const emprestimoAtivo = emprestimos.find(e => e.idLivro == idLivro && e.status === "ativo")
   if (emprestimoAtivo) {
     return res.status(409).json({ error: "Este livro já está emprestado!" })
@@ -74,7 +73,7 @@ router.get('/emprestimos/:id', (req, res) => {
   res.json(emprestimo)
 })
 
-// Atualizar empréstimo (ex.: marcar como devolvido)
+
 router.put('/emprestimos/:id', (req, res) => {
   const id = req.params.id
   const { idUsuario, idLivro, dataEmprestimo, dataDevolucaoPrevista, dataDevolucaoReal, status } = req.body
@@ -84,7 +83,7 @@ router.put('/emprestimos/:id', (req, res) => {
     return res.status(404).json({ error: "Empréstimo não encontrado!" })
   }
 
-  // Validações opcionais (se campos forem fornecidos)
+ 
   if (idUsuario) {
     const usuario = usuarios.find(u => u.id == idUsuario)
     if (!usuario) {
@@ -98,7 +97,7 @@ router.put('/emprestimos/:id', (req, res) => {
     }
   }
 
-  // Atualizar campos
+
   emprestimo.idUsuario = idUsuario || emprestimo.idUsuario
   emprestimo.idLivro = idLivro || emprestimo.idLivro
   emprestimo.dataEmprestimo = dataEmprestimo || emprestimo.dataEmprestimo
@@ -109,7 +108,7 @@ router.put('/emprestimos/:id', (req, res) => {
   res.json({ message: "Empréstimo atualizado com sucesso!", emprestimo })
 })
 
-// Deletar empréstimo
+
 router.delete('/emprestimos/:id', (req, res) => {
   const id = req.params.id
   const emprestimo = emprestimos.find(e => e.id == id)
