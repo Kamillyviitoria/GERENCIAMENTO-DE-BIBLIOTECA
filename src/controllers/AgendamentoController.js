@@ -1,11 +1,9 @@
-const express = require('express')
-const router = express.Router()
+const express = require('express');
+const router = express.Router();
 
-// Importando listas
-const { livros } = require('./LivroController')
-const { funcionarios } = require('./FuncionarioController')
+const { livros } = require('./LivroController');
+const { funcionarios } = require('./FuncionarioController');
 
-// lista de agendamentos
 let agendamentos = [
   {
     id: 1,
@@ -15,25 +13,27 @@ let agendamentos = [
     dataDevolucao: "2025-10-12",
     status: "ativo"
   }
-]
+];
 
-// Criar
+function validarFuncionarioELivro(cpfFuncionario, idLivro) {
+  const funcionario = funcionarios.find(f => f.cpf == cpfFuncionario);
+  const livro = livros.find(l => l.id == idLivro);
+
+  if (!funcionario) return { error: "Funcionário não encontrado!" };
+  if (!livro) return { error: "Livro não encontrado!" };
+
+  return { funcionario, livro };
+}
+
 router.post('/agendamentos', (req, res) => {
-  const { cpfFuncionario, idLivro, dataAgendamento, dataDevolucao } = req.body
+  const { cpfFuncionario, idLivro, dataAgendamento, dataDevolucao } = req.body;
 
   if (!cpfFuncionario || !idLivro || !dataAgendamento || !dataDevolucao) {
-    return res.status(400).json({ error: "TODOS OS CAMPOS SÃO OBRIGATÓRIOS!!!" })
+    return res.status(400).json({ error: "Todos os campos são obrigatórios!" });
   }
 
-  const funcionario = funcionarios.find(f => f.cpf == cpfFuncionario)
-  if (!funcionario) {
-    return res.status(404).json({ error: "Funcionário não encontrado!" })
-  }
-
-  const livro = livros.find(l => l.id == idLivro)
-  if (!livro) {
-    return res.status(404).json({ error: "Livro não encontrado!" })
-  }
+  const validacao = validarFuncionarioELivro(cpfFuncionario, idLivro);
+  if (validacao.error) return res.status(404).json({ error: validacao.error });
 
   const novoAgendamento = {
     id: Date.now(),
@@ -41,66 +41,64 @@ router.post('/agendamentos', (req, res) => {
     idLivro,
     dataAgendamento,
     dataDevolucao,
-    status: "ativo" // automático
-  }
+    status: "ativo"
+  };
 
-  agendamentos.push(novoAgendamento)
-  res.status(201).json({ message: "Agendamento criado com sucesso!", novoAgendamento })
-})
+  agendamentos.push(novoAgendamento);
+  res.status(201).json({ message: "Agendamento criado com sucesso!", agendamento: novoAgendamento });
+});
 
-// Listar todos
-router.get('/agendamentos', (req, res) => {
-  res.json(agendamentos)
-})
 
-// Buscar por id
+router.get('/agendamentos', (_, res) => {
+  res.json(agendamentos);
+});
+
+
 router.get('/agendamentos/:id', (req, res) => {
-  const id = req.params.id
-  const agendamento = agendamentos.find(a => a.id == id)
-  if (!agendamento) {
-    return res.status(404).json({ error: "Agendamento não encontrado!" })
-  }
-  res.json(agendamento)
-})
+  const id = Number(req.params.id);
+  const agendamento = agendamentos.find(a => a.id === id);
 
-// Atualizar
+  if (!agendamento) {
+    return res.status(404).json({ error: "Agendamento não encontrado!" });
+  }
+
+  res.json(agendamento);
+});
+
+
 router.put('/agendamentos/:id', (req, res) => {
-  const id = req.params.id
-  const { cpfFuncionario, idLivro, dataAgendamento, dataDevolucao, status } = req.body
+  const id = Number(req.params.id);
+  const { cpfFuncionario, idLivro, dataAgendamento, dataDevolucao, status } = req.body;
 
-  const agendamento = agendamentos.find(a => a.id == id)
+  const agendamento = agendamentos.find(a => a.id === id);
   if (!agendamento) {
-    return res.status(404).json({ error: "Agendamento não encontrado!" })
+    return res.status(404).json({ error: "Agendamento não encontrado!" });
   }
 
-  const funcionario = funcionarios.find(f => f.cpf == cpfFuncionario)
-  if (!funcionario) {
-    return res.status(404).json({ error: "Funcionário não encontrado!" })
-  }
+  const validacao = validarFuncionarioELivro(cpfFuncionario, idLivro);
+  if (validacao.error) return res.status(404).json({ error: validacao.error });
 
-  const livro = livros.find(l => l.id == idLivro)
-  if (!livro) {
-    return res.status(404).json({ error: "Livro não encontrado!" })
-  }
+  // Atualização
+  agendamento.cpfFuncionario = cpfFuncionario;
+  agendamento.idLivro = idLivro;
+  agendamento.dataAgendamento = dataAgendamento;
+  agendamento.dataDevolucao = dataDevolucao;
+  agendamento.status = status ?? agendamento.status;
 
-  agendamento.cpfFuncionario = cpfFuncionario
-  agendamento.idLivro = idLivro
-  agendamento.dataAgendamento = dataAgendamento
-  agendamento.dataDevolucao = dataDevolucao
-  agendamento.status = status || agendamento.status
+  res.json({ message: "Agendamento atualizado com sucesso!", agendamento });
+});
 
-  res.json({ message: "Agendamento atualizado com sucesso!", agendamento })
-})
-
-// Deletar
 router.delete('/agendamentos/:id', (req, res) => {
-  const id = parseInt(req.params.id); // Converte a string da URL para número
-  const agendamento = agendamentos.find(a => a.id === id)
-  if (!agendamento) {
-    return res.status(404).json({ error: "Agendamento não encontrado!" })
-  }
-  agendamentos = agendamentos.filter(a => a.id != id)
-  res.json({ message: "Agendamento excluído com sucesso!" })
-})
+  const id = Number(req.params.id);
+  const existe = agendamentos.some(a => a.id === id);
 
-module.exports = router
+  if (!existe) {
+    return res.status(404).json({ error: "Agendamento não encontrado!" });
+  }
+
+  agendamentos = agendamentos.filter(a => a.id !== id);
+
+  res.json({ message: "Agendamento excluído com sucesso!" });
+});
+
+module.exports = router;
