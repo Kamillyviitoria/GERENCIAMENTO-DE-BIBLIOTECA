@@ -78,7 +78,6 @@ router.put('/agendamentos/:id', (req, res) => {
   const validacao = validarFuncionarioELivro(cpfFuncionario, idLivro);
   if (validacao.error) return res.status(404).json({ error: validacao.error });
 
-  // Atualização
   agendamento.cpfFuncionario = cpfFuncionario;
   agendamento.idLivro = idLivro;
   agendamento.dataAgendamento = dataAgendamento;
