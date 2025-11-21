@@ -9,6 +9,7 @@ const schema = yup.object().shape({
     dataNascimento: yup.date().required(),
     dataContratacao: yup.date().required(),
     genero: yup.string().required(),
+    cargo: yup.string().required()
     
 });
 

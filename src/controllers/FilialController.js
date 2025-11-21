@@ -7,7 +7,7 @@ const { validarFilial } = require("../validators/FilialValidator");
 const {validarId} = require('../validators/IDValidator')
 
 router.get("/filiais", async (req, res, next) => {
-    const filiais = await FilialModel.find().populate();
+    const filiais = await FilialModel.find().populate('gerente');
     res.json(filiais);
 });
 

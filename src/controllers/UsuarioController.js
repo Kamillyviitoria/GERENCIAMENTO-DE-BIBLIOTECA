@@ -3,7 +3,7 @@ const router = express.Router();
 
 const UsuarioModel = require("../models/UsuarioModel");
 const { validarUsuario } = require("../validators/UsuarioValidator");
-const { validarId } = require('../validators/IdValidator');
+const { validarId } = require('../validators/IDValidator');
 
 router.get("/usuarios", async (req, res) => {
     const usuarios = await UsuarioModel.find();

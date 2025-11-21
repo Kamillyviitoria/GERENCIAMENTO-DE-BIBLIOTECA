@@ -14,7 +14,7 @@ router.get("/multas", async (req, res, next) => {
 router.get("/multas/:id",validarId, async (req, res, next) => {
     const multaEncontrada = await MultaModel.findById(
         req.params.id
-    ).populate();
+    ).populate(['funcionario']);
 
     if (!multaEncontrada) {
         return res.status(404).json({ erro: "Filial não encontrada" });

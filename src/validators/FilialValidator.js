@@ -3,7 +3,7 @@ const mongoose = require("mongoose");
 
 const schema = yup.object().shape({
     nome: yup.string().required(),
-    cnpj: yuyp.number().required(),
+    cnpj: yup.number().required(),
     telefone: yup.number().required(),
     email: yup.string().email().required(),
     gerente: yup.string().required().test("id-validator", "id do gerente é inválido", (value) => mongoose.Types.ObjectId.isValid(value))

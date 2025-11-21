@@ -7,14 +7,14 @@ const { validarFuncionario } = require("../validators/FuncionarioValidator");
 const {validarId} = require('../validators/IDValidator')
 
 router.get("/funcionarios", async (req, res, next) => {
-    const funcionarios = await FuncionarioModel.find().populate(['cargo','departamento']);
+    const funcionarios = await FuncionarioModel.find().populate();
     res.json(funcionarios);
 });
 
 router.get("/funcionarios/:id",validarId, async (req, res, next) => {
     const funcionarioEncontrado = await FuncionarioModel.findById(
         req.params.id
-    ).populate(['cargo', 'departamento']);
+    ).populate();
 
     if (!funcionarioEncontrado) {
         return res.status(404).json({ erro: "Não encontrado" });

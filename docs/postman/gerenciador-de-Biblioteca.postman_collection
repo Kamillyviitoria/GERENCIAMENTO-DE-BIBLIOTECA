@@ -1,0 +1,339 @@
+{
+	"info": {
+		"_postman_id": "dea17f8d-2c53-4bf3-bd1c-49f5ea8bef8f",
+		"name": "Gerenciador de Biblioteca",
+		"description": "# Gerenciador de Biblioteca",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "47460734"
+	},
+	"item": [
+		{
+			"name": "funcionarios",
+			"item": [
+				{
+					"name": "Cadastrar funcionário",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"nome\": \"Victor Lopes\",\r\n    \"cpf\": \"60247879999\",\r\n    \"email\": \"lopesss@gmail.com\",\r\n    \"telefone\": \"61998780506\",\r\n    \"dataNascimento\": \"2001-06-20\",\r\n    \"dataContratacao\": \"2024-10-10\",\r\n    \"genero\": \"masculino\",\r\n    \"cargo\": \"Recepcionista\"\r\n}http://localhost:3000/funcionarios",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/funcionarios",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"funcionarios"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Buscar funcionarios",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/funcionarios",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"funcionarios"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Buscar funcionario por ID",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/funcionarios/6920baa3bafddd94964c2296",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"funcionarios",
+								"6920baa3bafddd94964c2296"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Atualizar funcionario",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n     \"nome\": \"Victor Lopes\",\r\n    \"cpf\": \"60247879999\",\r\n    \"email\": \"lopesss@gmail.com\",\r\n    \"telefone\": \"61998780506\",\r\n    \"dataNascimento\": \"2001-06-20T00:00:00.000Z\",\r\n    \"dataContratacao\": \"2024-10-10T00:00:00.000Z\",\r\n    \"genero\": \"masculino\",\r\n    \"cargo\": \"Gestor de TI\"\r\n\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/funcionarios/6920baa3bafddd94964c2296",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"funcionarios",
+								"6920baa3bafddd94964c2296"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Deletar funcionario",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/funcionarios/6920baa3bafddd94964c2296",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"funcionarios",
+								"6920baa3bafddd94964c2296"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "filiais",
+			"item": [
+				{
+					"name": "Cadastrar filial",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"nome\": \"LivrOffice\",\r\n    \"cnpj\": 90112587000109,\r\n    \"endereco\": {\r\n        \"quadra\": 18,\r\n        \"lote\": 20,\r\n        \"bairro\": \"Jardim Brasília\",\r\n        \"cidade\": \"Águas Lindas\",\r\n        \"estado\": \"Goiás\",\r\n        \"cep\": 72915024\r\n    },\r\n    \"telefone\": 6136184212,\r\n    \"email\": \"livroffice33@gmail.com\",\r\n    \"gerente\":\"6920b9f5bafddd94964c2294\" ,\r\n    \"status\": \"ativa\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/filiais",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"filiais"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Buscar filiais",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/filiais",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"filiais"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Buscar filial por ID",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": ""
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Atualizar filial",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/filiais/6920c70ad87cc32838687a65",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"filiais",
+								"6920c70ad87cc32838687a65"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Deletar filial",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/filiais/6920c70ad87cc32838687a65",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"filiais",
+								"6920c70ad87cc32838687a65"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "multas",
+			"item": [
+				{
+					"name": "Cadastrar multa",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": ""
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Buscar multas",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/multas",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"multas"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Buscar multa por ID",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/multas/6920e58a4c4df457c7e32bc9",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"multas",
+								"6920e58a4c4df457c7e32bc9"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Atualizar multa",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/multas/6920e58a4c4df457c7e32bc9",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"multas",
+								"6920e58a4c4df457c7e32bc9"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Deletar multa",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/multas/6920e58a4c4df457c7e32bc9",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"multas",
+								"6920e58a4c4df457c7e32bc9"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
