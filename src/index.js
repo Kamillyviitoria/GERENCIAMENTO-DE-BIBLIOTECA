@@ -24,14 +24,19 @@ const EmprestimoController = require('./controllers/EmprestimoController')
 const FuncionarioController = require('./controllers/FuncionarioController')
 const LivroController = require('./controllers/LivroController')
 const UsuarioController = require('./controllers/UsuarioController')
+const AvaliacaoController = require('./controllers/AvaliacaoController')   // mover pra cá
+
 
 // Usar as rotas
-app.use(AgendamentoController)
-app.use(CategoriaController.router)  // Nota: CategoriaController exporta { router, categorias }
-app.use(EmprestimoController)
-app.use(FuncionarioController)
-app.use(LivroController.router)  // Mesmo para LivroController
-app.use(UsuarioController.router)  // Mesmo para UsuarioController
+// Usar as rotas
+app.use('/agendamentos', AgendamentoController)
+app.use('/categorias', CategoriaController.router)  // só se CategoriaController exporta { router, ... }
+app.use('/emprestimos', EmprestimoController)
+app.use('/funcionarios', FuncionarioController)
+app.use('/livros', LivroController.router)          // só se LivroController exporta { router, ... }
+app.use('/usuarios', UsuarioController)            // exporta router direto
+app.use('/avaliacao', AvaliacaoController)
+
 
 mongoose.connect(url)
     .then(() => {

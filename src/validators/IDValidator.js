@@ -1,8 +1,7 @@
 const mongoose = require('mongoose')
 
-// Middlware que valida se o ID está no formato
-// que o mongo espera
-function validarID(req, res, next) {
+// Middleware que valida se o ID está no formato que o Mongo espera
+function validarId(req, res, next) {
   const id = req.params.id
   const valido = mongoose.Types.ObjectId.isValid(id)
   if (!valido) {
@@ -13,5 +12,5 @@ function validarID(req, res, next) {
 
 // exportar
 module.exports = {
-  validarID
+  validarId
 }
