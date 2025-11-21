@@ -7,7 +7,8 @@ const schema = new mongoose.Schema({
     telefone: { type: String, required: true },
     dataNascimento: { type: Date, required: true },
     dataContratacao: { type: Date, required: true },
-    genero: { type: String, required: true },
+    genero: { type: String, required: false },
+    cargo:{type: String, required: true}
     
 });
 
