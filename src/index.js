@@ -13,7 +13,7 @@ const DB_USER = process.env.DB_USER
 const DB_PASS = process.env.DB_PASS
 const DB_NAME = process.env.DB_NAME
 
-const url = `mongodb+srv://walisson_rocha:HVFLodR1odvGEVlK@clusterbiblioteca.zvs9kdq.mongodb.net/?appName=ClusterBiblioteca`;
+const url = `mongodb+srv://${DB_USER}:${DB_PASS}@${DB_HOST}/${DB_NAME}`;
 
 
 
@@ -24,7 +24,9 @@ const EmprestimoController = require('./controllers/EmprestimoController')
 const FuncionarioController = require('./controllers/FuncionarioController')
 const LivroController = require('./controllers/LivroController')
 const UsuarioController = require('./controllers/UsuarioController')
-const AvaliacaoController = require('./controllers/AvaliacaoController')   // mover pra cá
+const AvaliacaoController = require('./controllers/AvaliacaoController') 
+const FilialController = require('./controllers/FilialController')
+const MultaController = require('./controllers/MultaController')  // mover pra cá
 
 
 // Usar as rotas
@@ -32,7 +34,9 @@ const AvaliacaoController = require('./controllers/AvaliacaoController')   // mo
 app.use('/agendamentos', AgendamentoController)
 app.use('/categorias', CategoriaController.router)  // só se CategoriaController exporta { router, ... }
 app.use('/emprestimos', EmprestimoController)
-app.use('/funcionarios', FuncionarioController)
+app.use(FuncionarioController)
+app.use(FilialController)
+app.use(MultaController)
 app.use('/livros', LivroController.router)          // só se LivroController exporta { router, ... }
 app.use('/usuarios', UsuarioController)            // exporta router direto
 app.use('/avaliacao', AvaliacaoController)
