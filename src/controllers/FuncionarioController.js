@@ -4,7 +4,7 @@ const router = express.Router();
 
 const FuncionarioModel = require("../models/FuncionarioModel");
 const { validarFuncionario } = require("../validators/FuncionarioValidator");
-const {validarId} = require('../validators/IdValidator')
+const {validarId} = require('../validators/IDValidator')
 
 router.get("/funcionarios", async (req, res, next) => {
     const funcionarios = await FuncionarioModel.find().populate(['cargo','departamento']);
