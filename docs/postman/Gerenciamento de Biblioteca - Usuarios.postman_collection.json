@@ -1,0 +1,121 @@
+{
+	"info": {
+		"_postman_id": "2b0b54d1-7fba-4b90-931e-5b69961e7003",
+		"name": "Gerenciamento de Biblioteca - Usuarios",
+		"description": "Esta pasta contém as rotas de CRUD relacionadas aos da Usuários da Biblioteca.  \nCampos: nome, email e telefone.",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "47460770"
+	},
+	"item": [
+		{
+			"name": "New Request",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"description": "StartFragment\n\n### **Descrição:**\n\nRetorna a lista completa de usuários cadastrados no sistema.\n\n### **Resposta 200 (exemplo):**\n\n```\n[\n  {\n    \"_id\": \"6751d0c9bfa36d7cc846b150\",\n    \"nome\": \"Maria Oliveira\",\n    \"email\": \"maria@gmail.com\"\n  },\n  {\n    \"_id\": \"6751d0e4bfa36d7cc846b151\",\n    \"nome\": \"João Silva\",\n    \"email\": \"joao@gmail.com\"\n  }\n]\n\n ```\n\nEndFragment"
+			},
+			"response": []
+		},
+		{
+			"name": "New Request",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"nome\": \"Kamilly Vitória\",\r\n  \"email\": \"kamilly@example.com\",\r\n  \"telefone\": \"61999999999\"\r\n  }\r\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/usuarios\n",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"usuarios\n"
+					]
+				},
+				"description": "StartFragment\n\n### **Descrição:**\n\nCria um novo usuário no sistema.  \n  \nTodos os campos obrigatórios devem ser enviados conforme o validador `validarUsuario`.\n\n### **Body válido (exemplo):**\n\n```\n{\n  \"nome\": \"Ana Souza\",\n  \"email\": \"ana.souza@gmail.com\",\n  \"senha\": \"123456\"\n}\n\n ```\n\n### **Resposta 201 (exemplo):**\n\n```\n{\n  \"_id\": \"6751d2c0bfa36d7cc846b15a\",\n  \"nome\": \"Ana Souza\",\n  \"email\": \"ana.souza@gmail.com\",\n  \"senha\": \"123456\",\n  \"__v\": 0\n}\n\n ```\n\nEndFragment"
+			},
+			"response": []
+		},
+		{
+			"name": "New Request",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3000/usuarios/69f160e6951435dd33895bf7",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"usuarios",
+						"69f160e6951435dd33895bf7"
+					]
+				},
+				"description": "### **Descrição:**\n\nBusca um usuário específico pelo ID.  \n  \nCaso o ID seja inválido ou o usuário não exista, o sistema retorna erro.\n\n### **Resposta 200 (exemplo):**\n\n```\n{\n  \"_id\": \"6751d0c9bfa36d7cc846b150\",\n  \"nome\": \"Maria Oliveira\",\n  \"email\": \"maria@gmail.com\"\n}\n\n ```\n\n### **Resposta 404:**\n\n```\n{ \"erro\": \"Não encontrado!!!\" }\n\n ```\n\nEndFragment"
+			},
+			"response": []
+		},
+		{
+			"name": "New Request",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"nome\": \"Kamilly Atualizada\",\r\n  \"email\": \"kamilly@update.com\",\r\n  \"telefone\": \"61900000000\"\r\n}\r\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "GET http://localhost:3000/usuarios/691f6066951435dd33895bf7",
+					"protocol": "GET http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"usuarios",
+						"691f6066951435dd33895bf7"
+					]
+				},
+				"description": "### **Descrição:**\n\nAtualiza os dados de um usuário existente.  \n  \nÉ necessário fornecer um ID válido e campos válidos conforme o validador.\n\n### **Body válido (exemplo):**\n\n```\n{\n  \"nome\": \"Ana Souza Ferreira\",\n  \"email\": \"ana.ferreira@gmail.com\"\n}\n\n ```\n\n### **Resposta 200 (exemplo):**\n\n```\n{\n  \"_id\": \"6751d2c0bfa36d7cc846b15a\",\n  \"nome\": \"Ana Souza Ferreira\",\n  \"email\": \"ana.ferreira@gmail.com\"\n}\n\n ```\n\n### **Resposta 404:**\n\n```\n{ \"erro\": \"Não encontrado\" }\n\n ```\n\nEndFragment"
+			},
+			"response": []
+		},
+		{
+			"name": "New Request",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3000/usuarios/691f6066951435dd33895bf7",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"usuarios",
+						"691f6066951435dd33895bf7"
+					]
+				},
+				"description": "StartFragment\n\n### **Descrição:**\n\nRemove um usuário do sistema pelo ID.\n\n### **Resposta 204:**\n\nSem conteúdo.\n\n### **Resposta 404:**\n\n```\n{ \"erro\": \"Não encontrado\" }\n\n ```\n\nEndFragment"
+			},
+			"response": []
+		}
+	]
+}

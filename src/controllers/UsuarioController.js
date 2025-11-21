@@ -1,112 +1,55 @@
-const express = require('express')
-const router = express.Router()
+const express = require("express");
+const router = express.Router();
 
-// Lista de usuários para simular o banco de dados
-let usuarios = [
-  {
-    id: 1001,
-    nome: "Carlos Eduardo Santos",
-    email: "carlos.santos@exemplo.com",
-    telefone: "61987654321",
-    dataCadastro: "2025-01-15"
-  },
-  {
-    id: 1002,
-    nome: "Bianca Almeida",
-    email: "bianca.almeida@exemplo.com",
-    telefone: "61998765432",
-    dataCadastro: "2025-03-20"
-  }
-]
+const UsuarioModel = require("../models/UsuarioModel");
+const { validarUsuario } = require("../validators/UsuarioValidator");
+const { validarId } = require('../validators/IdValidator');
 
-// 1. POST /usuarios (CREATE)
-router.post('/usuarios', (req, res) => {
-  const { nome, email, telefone } = req.body
-  
-  // Validação 1: Campos obrigatórios (400 Bad Request)
-  if (!nome || !email || !telefone) {
-    return res.status(400).json({ error: "Nome, Email e Telefone são obrigatórios!" })
-  }
+router.get("/usuarios", async (req, res) => {
+    const usuarios = await UsuarioModel.find();
+    res.json(usuarios);
+});
 
-  // Validação 2: Email duplicado (409 Conflict)
-  const usuarioExistente = usuarios.find(u => u.email === email)
-  if (usuarioExistente) {
-    return res.status(409).json({ error: "Email já cadastrado! O usuário já existe." })
-  }
+router.get("/usuarios/:id", validarId, async (req, res) => {
+    const usuarioEncontrado = await UsuarioModel.findById(req.params.id);
 
-  const novoUsuario = {
-    id: Date.now(),
-    nome,
-    email,
-    telefone,
-    dataCadastro: new Date().toISOString().split('T')[0] // Data automática no formato YYYY-MM-DD
-  }
-  
-  usuarios.push(novoUsuario)
-  // 201 Created
-  res.status(201).json({ message: "Usuário cadastrado com sucesso!", novoUsuario })
-})
+    if (!usuarioEncontrado) {
+        return res.status(404).json({ erro: "Não encontrado!!!" });
+    }
 
-// 2. GET /usuarios (READ ALL)
-router.get('/usuarios', (req, res) => {
-  // 200 OK
-  res.json(usuarios)
-})
+    res.json(usuarioEncontrado);
+});
 
-// 3. GET /usuarios/:id (READ ONE)
-router.get('/usuarios/:id', (req, res) => {
-  const idRecebido = parseInt(req.params.id) // Converte o ID para número
-  const usuario = usuarios.find(u => u.id === idRecebido)
+router.post("/usuarios", validarUsuario, async (req, res) => {
+    const usuarioCadastrado = await UsuarioModel.create(req.body);
+    res.status(201).json(usuarioCadastrado);
+});
 
-  // 404 Not Found
-  if (!usuario) {
-    return res.status(404).json({ error: "Usuário não encontrado!" })
-  }
-  res.json(usuario)
-})
+router.put("/usuarios/:id", validarId, validarUsuario, async (req, res) => {
+    const id = req.params.id;
+    const dados = req.body;
 
-// 4. PUT /usuarios/:id (UPDATE)
-router.put('/usuarios/:id', (req, res) => {
-  const idRecebido = parseInt(req.params.id) // Converte o ID para número
-  const { nome, email, telefone } = req.body
-  
-  // Validação: Campos obrigatórios para atualização (400 Bad Request)
-  if (!nome || !email || !telefone) {
-    return res.status(400).json({ error: "Todos os campos são obrigatórios para a atualização!" })
-  }
+    const usuarioAtualizado = await UsuarioModel.findByIdAndUpdate(
+        id,
+        dados,
+        { new: true }
+    );
 
-  const index = usuarios.findIndex(u => u.id === idRecebido)
-  
-  // 404 Not Found
-  if (index === -1) {
-    return res.status(404).json({ error: "Usuário não encontrado para atualização!" })
-  }
+    if (!usuarioAtualizado) {
+        return res.status(404).json({ erro: "Não encontrado" });
+    }
 
-  // Atualiza o objeto. Mantém o ID original e a data de cadastro.
-  usuarios[index] = {
-    ...usuarios[index], // Mantém a data de cadastro e ID original
-    nome,
-    email,
-    telefone
-  }
-  
-  res.json({ message: "Usuário atualizado com sucesso!", usuario: usuarios[index] })
-})
+    res.json(usuarioAtualizado);
+});
 
-// 5. DELETE /usuarios/:id (DELETE)
-router.delete('/usuarios/:id', (req, res) => {
-  const idRecebido = parseInt(req.params.id) // Converte o ID para número
-  const initialLength = usuarios.length
-  
-  // Filtra o array removendo o item
-  usuarios = usuarios.filter(u => u.id !== idRecebido)
+router.delete("/usuarios/:id", validarId, async (req, res) => {
+    const usuarioDeletado = await UsuarioModel.findByIdAndDelete(req.params.id);
 
-  // 404 Not Found
-  if (usuarios.length === initialLength) {
-    return res.status(404).json({ error: "Usuário não encontrado para exclusão!" })
-  }
-  
-  res.json({ message: "Usuário excluído com sucesso!" })
-})
+    if (!usuarioDeletado) {
+        return res.status(404).json({ erro: "Não encontrado" });
+    }
 
-module.exports = { router, usuarios }
+    res.status(204).send();
+});
+
+module.exports = router;
